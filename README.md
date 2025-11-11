@@ -44,11 +44,3 @@ For every detected face, the direction of the face is estimated based on the **n
   - `numpy`
 
 ---
-
-##  How to Run
-
-1. Open the notebook in **Google Colab**.  
-2. Upload the test images using:
-   ```python
-   from google.colab import files
-   uploaded = files.upload()
