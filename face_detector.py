@@ -12,8 +12,8 @@ Original file is located at
 !wget -q -O detector.tflite -q https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite
 
 from google.colab import files
-uploaded = files.upload()   # bilgisayarından 1+ görsel seç
-list(uploaded.keys())       # yüklenen dosya adlarını gör
+uploaded = files.upload()   
+list(uploaded.keys())       
 
 import numpy as np
 import mediapipe as mp
@@ -33,14 +33,14 @@ def visualize_bboxes(rgb_image, detection_result):
             x2, y2 = x1 + int(bbox.width), y1 + int(bbox.height)
             cv2.rectangle(img, (x1, y1), (x2, y2), (0,255,0), 2)
 
-            # İstersen puanı yaz (ilk kategori skoru)
+        
             if det.categories:
                 score = det.categories[0].score
                 cv2.putText(img, f"{score:.2f}", (x1, max(0, y1-5)),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,255,0), 2)
     return img
 
-# FaceDetector oluştur
+
 BaseOptions = mp.tasks.BaseOptions
 FaceDetectorOptions = vision.FaceDetectorOptions
 FaceDetector = vision.FaceDetector
@@ -54,13 +54,13 @@ options = FaceDetectorOptions(
 )
 detector = FaceDetector.create_from_options(options)
 
-# Yüklediğin her görsel için çalıştır
+
 for fname in uploaded.keys():
     image = MPImage.create_from_file(fname)                # MediaPipe Image (RGB)
     result = detector.detect(image)                        # tespit
     rgb = image.numpy_view()                               # RGB array
     vis = visualize_bboxes(rgb, result)                    # kutuları çiz
-    bgr = cv2.cvtColor(vis, cv2.COLOR_RGB2BGR)             # cv2_imshow BGR ister
+    bgr = cv2.cvtColor(vis, cv2.COLOR_RGB2BGR)             # cv2_imshow BGR 
     print(f"{fname}: {len(result.detections)} yüz bulundu")
     cv2_imshow(bgr)
 
@@ -70,7 +70,7 @@ from google.colab.patches import cv2_imshow
 
 def visualize_and_classify(rgb_image, detection_result, threshold=0.03):
     """
-    threshold: 0.03 = 'straight' toleransı.
+    threshold: 0.03 = 'straight' tolarance.
     """
     img = rgb_image.copy()
     direction = "unknown"
@@ -82,7 +82,7 @@ def visualize_and_classify(rgb_image, detection_result, threshold=0.03):
             x2, y2 = x1 + int(bbox.width), y1 + int(bbox.height)
             cv2.rectangle(img, (x1, y1), (x2, y2), (0,255,0), 2)
 
-            # Keypoints varsa (burnun ucu genelde index 2)
+            # Keypoints 
             if det.keypoints:
                 nose_tip = det.keypoints[2]  # 2 = nose tip
                 nose_x = nose_tip.x
