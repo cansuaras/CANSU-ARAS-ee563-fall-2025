@@ -36,7 +36,7 @@ For every detected face, the direction of the face is estimated based on the **n
 
 ---
 
-## ⚙️ Environment and Dependencies
+## Environment and Dependencies
 - Python (Google Colab)
 - Libraries:
   - `mediapipe`
