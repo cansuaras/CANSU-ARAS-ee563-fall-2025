@@ -1,16 +1,54 @@
 # EE563 – Midterm Project
 
-This project implements two computer vision tasks using MediaPipe in Python/Google Colab.
-#Q1 – Pose Detection (Arm Up Classification)
+This project includes two computer vision tasks implemented in **Python (Google Colab)** using **MediaPipe**.
 
-A pose estimation model (Pose Landmarker) is used to detect body landmarks from input images.
-The script classifies which arm is raised by comparing the relative positions of the wrist, elbow, and shoulder:
+---
 
-Output: "left", "right", "both", or "None".
-If the wrist and elbow are higher (smaller y value) than the shoulder, that arm is considered “up”.
-#Q2 – Face Direction Detection
+## Q1 – Pose Detection (Arm Up Classification)
 
-A face detection model (Face Detector) is used to locate faces in images.
-For each detected face, the algorithm estimates whether the person is looking left, right, or straight based on the nose tip position relative to the bounding box center:
+The **Pose Landmarker** model from MediaPipe is used to detect human body landmarks in static images.
 
-Output: "left", "right", or "straight".
+The algorithm compares the relative positions of the wrist, elbow, and shoulder to determine which arm is raised.
+
+**Logic:**
+- If the wrist and elbow are positioned higher (smaller `y` value) than the shoulder, that arm is considered **up**.
+- If both arms satisfy the condition, the output is `"both"`.
+- Otherwise, `"left"`, `"right"`, or `"None"`.
+
+**Output:**  
+`left`, `right`, `both`, or `None`
+
+---
+
+## Q2 – Face Direction Detection
+
+The **Face Detector** model is used to find faces in each image.
+
+For every detected face, the direction of the face is estimated based on the **nose tip position** relative to the bounding box center.
+
+**Logic:**
+- If the nose tip is shifted to the right → `"right"`
+- If the nose tip is shifted to the left → `"left"`
+- If the offset is small → `"straight"`
+
+**Output:**  
+`left`, `right`, or `straight`
+
+---
+
+## ⚙️ Environment and Dependencies
+- Python (Google Colab)
+- Libraries:
+  - `mediapipe`
+  - `opencv-python`
+  - `numpy`
+
+---
+
+##  How to Run
+
+1. Open the notebook in **Google Colab**.  
+2. Upload the test images using:
+   ```python
+   from google.colab import files
+   uploaded = files.upload()
